@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Acıktım.com</string>
+    <string name="search_placeholder">Ara...</string>
+    <string name="add_to_cart">Sepete Ekle</string>
+    <string name="price_label">Fiyat: $%1$s</string>
+    <string name="added_to_cart_message">%1$s sepete eklendi</string>
+    <string name="cart">Sepet</string>
+    <string name="clear_cart">Sepeti Temizle</string>
+    <string name="total">Toplam</string>
+    <string name="vat">KDV</string>
+    <string name="final_amount">Son Tutar</string>
+    <string name="order_now">Şimdi Sipariş Ver</string>
+    <string name="cart_empty">Sepet boş</string>
+    <string name="back">Geri</string>
+    <string name="price">Fiyat</string>
+    <string name="added_to_cart">sepete eklendi</string>
+    <string name="quantity">Miktar</string>
+    <string name="notification">Siparişiniz bize ulaştı. En kısa zamanda yemeğiniz yola çıkacak.</string>
+
+</resources>

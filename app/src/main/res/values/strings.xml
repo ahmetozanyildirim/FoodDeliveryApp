@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Aciktim.com</string>
+    <string name="search_placeholder">Search...</string>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="price_label">Price: \$%1$s</string>
+    <string name="added_to_cart_message">%1$s added to cart</string>
+    <string name="cart">Cart</string>
+    <string name="clear_cart">Clear Cart</string>
+    <string name="total">Total</string>
+    <string name="vat">VAT</string>
+    <string name="final_amount">Final</string>
+    <string name="order_now">Order Now</string>
+    <string name="cart_empty">Cart is empty</string>
+    <string name="back">Back</string>
+    <string name="price">Price</string>
+    <string name="quantity">Quantity</string>
+    <string name="added_to_cart">added to cart</string>
+    <string name="notification">Your order has reached us. Your food will be on its way as soon as possible.</string>
+</resources>
