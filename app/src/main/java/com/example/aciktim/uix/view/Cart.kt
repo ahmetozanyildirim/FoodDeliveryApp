@@ -1,5 +1,6 @@
 package com.example.aciktim.uix.view
 
+import android.media.MediaPlayer
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -54,6 +55,8 @@ import com.example.aciktim.MyWorker
 import com.example.aciktim.R
 import com.example.aciktim.data.entity.SepetYemekler
 import com.example.aciktim.ui.theme.AppBarColor
+import com.example.aciktim.ui.theme.CardColor
+import com.example.aciktim.ui.theme.DarkCardColor
 import com.example.aciktim.uix.viewmodel.CartViewModel
 import com.skydoves.landscapist.glide.GlideImage
 import java.util.concurrent.TimeUnit
@@ -66,6 +69,9 @@ fun Cart(navController: NavController, cartViewModel:CartViewModel) {
     val kullanici_adi = "denemeOzann"
 
     val context = LocalContext.current
+
+    val mediaPlayer = remember { MediaPlayer.create(context, R.raw.buttonsound) }
+
 
 
 
@@ -89,7 +95,7 @@ fun Cart(navController: NavController, cartViewModel:CartViewModel) {
                         Icon(
                             imageVector = Icons.Filled.ArrowBack,
                             contentDescription = "Back",
-                            tint = MaterialTheme.colorScheme.onPrimary
+                            tint = Color.White
                         )
                     }
                 },
@@ -101,10 +107,13 @@ fun Cart(navController: NavController, cartViewModel:CartViewModel) {
                     Button(
                         onClick = {
                             if (!isCartEmpty) cartViewModel.sepetiBosalt(kullanici_adi)
+                            if (!mediaPlayer.isPlaying) {
+                                mediaPlayer.start()
+                            }
                         },
                         enabled = !isCartEmpty,  // Button is disabled if the cart is empty
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = if (isCartEmpty) Color.Gray else MaterialTheme.colorScheme.error, // Gray if disabled, Red if enabled
+                            containerColor = if (isCartEmpty) Color.Gray else DarkCardColor, // Gray if disabled, Red if enabled
                             contentColor = Color.White
                         ),
                         modifier = Modifier.padding(end = 8.dp)
@@ -161,9 +170,12 @@ fun Cart(navController: NavController, cartViewModel:CartViewModel) {
                         onClick = {
                             val istek = OneTimeWorkRequestBuilder<MyWorker>().setInitialDelay(15,TimeUnit.SECONDS).build()
                             WorkManager.getInstance(context).enqueue(istek)
+                            if (!mediaPlayer.isPlaying) {
+                                mediaPlayer.start()
+                            }
                         }
                     ) {
-                        Text(text = stringResource(id = R.string.order_now), fontSize = 18.sp)
+                        Text(text = stringResource(id = R.string.order_now), fontSize = 18.sp, color = Color.White)
                     }
 
                 }
@@ -213,12 +225,13 @@ fun Cart(navController: NavController, cartViewModel:CartViewModel) {
 @Composable
 fun CartComponent(yemek: SepetYemekler, sepetYemeklerDeleteClick: () -> Unit) {
 
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(4.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface,
+            containerColor = MaterialTheme.colorScheme.onPrimaryContainer,
             contentColor = MaterialTheme.colorScheme.onSurface
         ),
         elevation = CardDefaults.cardElevation(8.dp)
@@ -245,7 +258,9 @@ fun CartComponent(yemek: SepetYemekler, sepetYemeklerDeleteClick: () -> Unit) {
                 Text(text = "Adet: ${yemek.yemek_siparis_adet}", fontSize = 18.sp,color = MaterialTheme.colorScheme.onSurface)
             }
             Text(text = "Fiyat: ${yemek.yemek_fiyat * yemek.yemek_siparis_adet}",color = MaterialTheme.colorScheme.onSurface)
-            IconButton(onClick = sepetYemeklerDeleteClick) {
+            IconButton(onClick = sepetYemeklerDeleteClick
+
+            ) {
                 Icon(imageVector = Icons.Default.Clear, contentDescription = "Delete Task", tint = Color.Gray)
             }
         }

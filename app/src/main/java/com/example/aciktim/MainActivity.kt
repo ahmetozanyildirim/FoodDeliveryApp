@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyAppTheme {
 
-                PageTransitions(homeViewModel,detailViewModel,cartViewModel)
+                PageTransitions(homeViewModel,detailViewModel,cartViewModel,)
 
 
                 }

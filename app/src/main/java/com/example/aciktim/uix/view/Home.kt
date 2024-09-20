@@ -2,6 +2,7 @@ package com.example.aciktim.uix.view
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.media.MediaPlayer
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -73,6 +74,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -85,7 +87,9 @@ import com.example.aciktim.R
 import com.example.aciktim.data.entity.SepetYemekler
 import com.example.aciktim.data.entity.Yemekler
 import com.example.aciktim.ui.theme.AppBarColor
+import com.example.aciktim.ui.theme.CardColor
 import com.example.aciktim.ui.theme.CherryFamily
+import com.example.aciktim.ui.theme.DarkCardColor
 import com.example.aciktim.uix.viewmodel.HomeViewModel
 import com.google.gson.Gson
 import com.skydoves.landscapist.glide.GlideImage
@@ -146,7 +150,7 @@ fun Home(navController: NavController, homeViewModel: HomeViewModel) {
                             Icon(
                                 imageVector = Icons.Default.ArrowBack,
                                 contentDescription = "Back Icon",
-                                tint = MaterialTheme.colorScheme.onPrimary
+                                tint = Color.White
                             )
                         }
                     }
@@ -157,14 +161,14 @@ fun Home(navController: NavController, homeViewModel: HomeViewModel) {
                             Icon(
                                 imageVector = Icons.Default.Search,
                                 contentDescription = "Search Icon",
-                                tint = MaterialTheme.colorScheme.onPrimary
+                                tint = Color.White
                             )
                         }
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor =if (isSearchActive) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.primary, // Change background color based on search state
-                    titleContentColor = if (isSearchActive) MaterialTheme.colorScheme.onBackground else MaterialTheme.colorScheme.onPrimary
+                    containerColor =if (isSearchActive) Color.Gray else AppBarColor, // Change background color based on search state
+                    titleContentColor = if (isSearchActive) MaterialTheme.colorScheme.onBackground else Color.White
                 )
 
             )
@@ -178,7 +182,7 @@ fun Home(navController: NavController, homeViewModel: HomeViewModel) {
                 },
 
                 containerColor = MaterialTheme.colorScheme.primary,
-                contentColor = MaterialTheme.colorScheme.onPrimary
+                contentColor = Color.White
             ) {
                 Icon(Icons.Filled.ShoppingCart, contentDescription = "Go to Cart")
             }
@@ -262,6 +266,8 @@ fun YemekCard(yemek: Yemekler, navController: NavController,homeViewModel: HomeV
     val kullanici_adi = "denemeOzann"
 
     var showSnackbar by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    val mediaPlayer = remember { MediaPlayer.create(context, R.raw.buttonsound) }
 
 
     val quantity = remember {
@@ -278,7 +284,7 @@ fun YemekCard(yemek: Yemekler, navController: NavController,homeViewModel: HomeV
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(8.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface
+            containerColor = MaterialTheme.colorScheme.onPrimaryContainer
         )
     ) {
         Column(
@@ -334,6 +340,9 @@ fun YemekCard(yemek: Yemekler, navController: NavController,homeViewModel: HomeV
                         showSnackbar = true
                         delay(2000)
                         showSnackbar = false
+                    }
+                    if (!mediaPlayer.isPlaying) {
+                        mediaPlayer.start()
                     }
 
 

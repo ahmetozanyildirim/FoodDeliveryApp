@@ -4,6 +4,7 @@
 package com.example.aciktim.uix.view
 
 
+import android.media.MediaPlayer
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateFloatAsState
@@ -51,6 +52,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -126,6 +128,9 @@ fun DetailContent(
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
 
+    val context = LocalContext.current
+    val mediaPlayer = remember { MediaPlayer.create(context, R.raw.buttonsound) }
+
     val addedToCartMessage = stringResource(id = R.string.added_to_cart)
 
     Scaffold(
@@ -138,7 +143,7 @@ fun DetailContent(
                         Icon(
                             imageVector = Icons.Filled.ArrowBack,
                             contentDescription = stringResource(id = R.string.back),
-                            tint = MaterialTheme.colorScheme.onPrimary
+                            tint = Color.White
                         )
                     }
                 },
@@ -155,8 +160,7 @@ fun DetailContent(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues)
-                .background(MaterialTheme.colorScheme.surfaceContainer),
+                .padding(paddingValues),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
@@ -201,7 +205,7 @@ fun DetailContent(
                         .padding(4.dp)
                         .width(100.dp)
                 ) {
-                    Text(text = "-", fontSize = 24.sp)
+                    Text(text = "-", fontSize = 24.sp,color = Color.White)
                 }
 
                 Spacer(modifier = Modifier.width(8.dp))
@@ -226,7 +230,7 @@ fun DetailContent(
                         .padding(4.dp)
                         .width(100.dp)
                 ) {
-                    Text(text = "+", fontSize = 24.sp)
+                    Text(text = "+", fontSize = 24.sp, color = Color.White)
                 }
             }
 
@@ -235,8 +239,9 @@ fun DetailContent(
             // Order Button
             Button(
                 onClick = {
-                    // Handle order with quantity
-                    // For example, navigate to the order summary or checkout screen
+                    if (!mediaPlayer.isPlaying) {
+                        mediaPlayer.start()
+                    }
                     detailViewModel.sepeteEkle(yemek.yemek_adi,yemek.yemek_resim_adi,yemek.yemek_fiyat,quantity,kullanici_adi)
                     coroutineScope.launch {
                         snackbarHostState.showSnackbar("${quantity} ${yemek.yemek_adi} $addedToCartMessage")
@@ -244,10 +249,10 @@ fun DetailContent(
 
                 },
                 modifier = Modifier.fillMaxWidth().padding(20.dp)
-                    .background(Color.White, RoundedCornerShape(16.dp))
+
                     .shadow(8.dp, RoundedCornerShape(16.dp))
             ) {
-                Text(text = stringResource(id = R.string.order_now), fontSize = 18.sp)
+                Text(text = stringResource(id = R.string.order_now), fontSize = 18.sp, color = Color.White)
             }
         }
     }
