@@ -11,22 +11,21 @@ class SepetYemeklerDataSource(var sydao: SepetYemeklerDao) {
                            yemek_resim_adi:String,
                            yemek_fiyat:Int,
                            yemek_siparis_adet:Int,
-                           kullanici_adi:String){
-
-
-
+                           kullanici_adi:String) {
         sydao.sepeteEkle(yemek_adi,yemek_resim_adi,yemek_fiyat,yemek_siparis_adet,kullanici_adi)
     }
 
-    suspend fun sepettekiYemekleriGetir(kullanici_adi:String) :List<SepetYemekler> = withContext(Dispatchers.IO)
+
+
+    suspend fun sepettekiYemekleriGetir(kullanici_adi:String) : List<SepetYemekler> = withContext(Dispatchers.IO)
     {
         return@withContext sydao.sepettekiYemekleriGetir(kullanici_adi).sepet_yemekler
     }
 
 
-    suspend fun sepettenSil(sepet_yemek_id:Int,kullanici_adi:String){
+    suspend fun sepettenSil(sepet_yemek_id:Int,
+                            kullanici_adi:String){
         sydao.sepettenSil(sepet_yemek_id,kullanici_adi)
-
     }
 
 

@@ -124,7 +124,7 @@ fun DetailContent(
     detailViewModel: DetailViewModel
 ) {
     var quantity by remember { mutableStateOf(1) }  // Manage the quantity state
-    val kullanici_adi = "denemeOzann"
+    val kullanici_adi = "ahmetozan"
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
 

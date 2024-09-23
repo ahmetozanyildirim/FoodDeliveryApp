@@ -263,7 +263,7 @@ fun YemekList(navController: NavController,yemekler:List<Yemekler>,homeViewModel
 
 @Composable
 fun YemekCard(yemek: Yemekler, navController: NavController,homeViewModel: HomeViewModel, snackbarHostState: SnackbarHostState, coroutineScope: CoroutineScope) { // Add a callback for button click
-    val kullanici_adi = "denemeOzann"
+    val kullanici_adi = "ahmetozan"
 
     var showSnackbar by remember { mutableStateOf(false) }
     val context = LocalContext.current

@@ -24,7 +24,7 @@ class CartViewModel @Inject constructor(var yrepo: YemeklerRepository,
 
     var sepetListesi = MutableLiveData<List<SepetYemekler>>()
 
-    val kullanici_adi = "denemeOzann"
+    val kullanici_adi = "ahmetozan"
 
 
 

@@ -66,25 +66,14 @@ import java.util.concurrent.TimeUnit
 fun Cart(navController: NavController, cartViewModel:CartViewModel) {
 
     val sepetYemekler = cartViewModel.sepetListesi.observeAsState(listOf())
-    val kullanici_adi = "denemeOzann"
-
+    val kullanici_adi = "ahmetozan"
     val context = LocalContext.current
-
     val mediaPlayer = remember { MediaPlayer.create(context, R.raw.buttonsound) }
-
-
-
-
-
 
 
     LaunchedEffect(sepetYemekler) {
         cartViewModel.sepetYemekleriYukle(kullanici_adi)
-
-
     }
-
-
 
     Scaffold(
         topBar = {
