@@ -68,7 +68,7 @@ fun MyAppTheme(
 
     MaterialTheme(
         colorScheme = colors,
-        typography = Typography, // Varsayılan yazı tipleri kullanılabilir
+        typography = Typography,
         content = content
     )
 }

@@ -99,7 +99,9 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Home(navController: NavController, homeViewModel: HomeViewModel) {
+fun Home(navController: NavController,
+         homeViewModel: HomeViewModel) {
+
 
     var yemeklerLitesi = homeViewModel.yemeklerListesi.observeAsState(listOf())
     var searchQuery by remember { mutableStateOf("") }
@@ -133,8 +135,7 @@ fun Home(navController: NavController, homeViewModel: HomeViewModel) {
                                 cursorColor = MaterialTheme.colorScheme.onBackground,
                                 focusedIndicatorColor = MaterialTheme.colorScheme.primary,
                                 unfocusedIndicatorColor = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)
-                            )
-                            ,
+                            ),
                             modifier = Modifier.fillMaxWidth()
                         )
                     } else {
@@ -145,7 +146,7 @@ fun Home(navController: NavController, homeViewModel: HomeViewModel) {
                     if (isSearchActive) {
                         IconButton(onClick = {
                             isSearchActive = false
-                            searchQuery = "" // Reset the search query when closing search
+                            searchQuery = ""
                         }) {
                             Icon(
                                 imageVector = Icons.Default.ArrowBack,
@@ -167,7 +168,7 @@ fun Home(navController: NavController, homeViewModel: HomeViewModel) {
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor =if (isSearchActive) Color.Gray else AppBarColor, // Change background color based on search state
+                    containerColor =if (isSearchActive) Color.Gray else AppBarColor,
                     titleContentColor = if (isSearchActive) MaterialTheme.colorScheme.onBackground else Color.White
                 )
 
@@ -177,7 +178,6 @@ fun Home(navController: NavController, homeViewModel: HomeViewModel) {
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    // Navigate to the cart screen
                     navController.navigate("cart")
                 },
 
@@ -247,7 +247,11 @@ fun Home(navController: NavController, homeViewModel: HomeViewModel) {
 }
 
 @Composable
-fun YemekList(navController: NavController,yemekler:List<Yemekler>,homeViewModel: HomeViewModel, snackbarHostState : SnackbarHostState, coroutineScope : CoroutineScope ){
+fun YemekList(navController: NavController,
+              yemekler:List<Yemekler>,
+              homeViewModel : HomeViewModel,
+              snackbarHostState : SnackbarHostState,
+              coroutineScope : CoroutineScope ){
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         contentPadding = PaddingValues(16.dp),
@@ -262,9 +266,13 @@ fun YemekList(navController: NavController,yemekler:List<Yemekler>,homeViewModel
 
 
 @Composable
-fun YemekCard(yemek: Yemekler, navController: NavController,homeViewModel: HomeViewModel, snackbarHostState: SnackbarHostState, coroutineScope: CoroutineScope) { // Add a callback for button click
-    val kullanici_adi = "ahmetozan"
+fun YemekCard(yemek: Yemekler,
+              navController: NavController,
+              homeViewModel: HomeViewModel,
+              snackbarHostState: SnackbarHostState,
+              coroutineScope: CoroutineScope) {
 
+    val kullanici_adi = "ahmetozan"
     var showSnackbar by remember { mutableStateOf(false) }
     val context = LocalContext.current
     val mediaPlayer = remember { MediaPlayer.create(context, R.raw.buttonsound) }
@@ -280,7 +288,7 @@ fun YemekCard(yemek: Yemekler, navController: NavController,homeViewModel: HomeV
             .height(260.dp)
             .clickable {
                 navController.navigate("detail/${yemek.yemek_id}")
-            },  // Increased height to accommodate the button
+            },
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(8.dp),
         colors = CardDefaults.cardColors(
@@ -346,12 +354,12 @@ fun YemekCard(yemek: Yemekler, navController: NavController,homeViewModel: HomeV
                     }
 
 
-                },  // Call the onOrderClick callback when button is pressed
+                },
                 shape = RoundedCornerShape(12.dp),
                 modifier = Modifier
                     .fillMaxWidth(),
 
-                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)// Button fills the width of the card
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
             ) {
                 Text(text = stringResource(id = R.string.add_to_cart), fontSize = 16.sp, color = Color.White)
             }
@@ -363,8 +371,8 @@ fun YemekCard(yemek: Yemekler, navController: NavController,homeViewModel: HomeV
                 .fillMaxWidth()
                 .padding(8.dp),
             color = MaterialTheme.colorScheme.surface,
-            shape = RoundedCornerShape(16.dp), // Köşeleri yuvarlayarak eliptik görünüm sağlar
-            shadowElevation = 4.dp,// Gölge efekti için
+            shape = RoundedCornerShape(16.dp),
+            shadowElevation = 4.dp,
         ) {
             Box(
                 modifier = Modifier
@@ -382,7 +390,8 @@ fun YemekCard(yemek: Yemekler, navController: NavController,homeViewModel: HomeV
 }
 
 @Composable
-fun SearchSuggestionItem(yemek: Yemekler, onItemClick: () -> Unit) {
+fun SearchSuggestionItem(yemek: Yemekler,
+                         onItemClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -390,7 +399,7 @@ fun SearchSuggestionItem(yemek: Yemekler, onItemClick: () -> Unit) {
             .padding(vertical = 8.dp, horizontal = 16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        // Yemek Resmi
+        // Image
         GlideImage(
             imageModel = "http://kasimadalan.pe.hu/yemekler/resimler/${yemek.yemek_resim_adi}",
             modifier = Modifier
@@ -401,7 +410,7 @@ fun SearchSuggestionItem(yemek: Yemekler, onItemClick: () -> Unit) {
 
         Spacer(modifier = Modifier.width(16.dp))
 
-        // Yemek Adı
+        // Text
         Text(
             text = yemek.yemek_adi,
             fontSize = 18.sp,

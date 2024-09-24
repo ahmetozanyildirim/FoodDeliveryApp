@@ -16,8 +16,8 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailViewModel @Inject constructor(
     var yrepo: YemeklerRepository,
-    var syrepo: SepetYemeklerRepository
-) : ViewModel() {
+    var syrepo: SepetYemeklerRepository)
+    : ViewModel() {
 
     var yemekListesi= MutableLiveData<List<Yemekler>>()
 
@@ -34,7 +34,12 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    fun sepeteEkle(yemek_adi:String,yemek_resim_adi:String,yemek_fiyat:Int,yemek_siparis_adet:Int,kullanici_adi:String){
+    fun sepeteEkle(yemek_adi:String,
+                   yemek_resim_adi:String,
+                   yemek_fiyat:Int,
+                   yemek_siparis_adet:Int,
+                   kullanici_adi:String){
+
         CoroutineScope(Dispatchers.Main).launch {
             syrepo.sepeteEkle(yemek_adi,yemek_resim_adi,yemek_fiyat,yemek_siparis_adet,kullanici_adi)
         }

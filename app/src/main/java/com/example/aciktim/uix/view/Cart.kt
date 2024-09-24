@@ -63,7 +63,8 @@ import java.util.concurrent.TimeUnit
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun Cart(navController: NavController, cartViewModel:CartViewModel) {
+fun Cart(navController: NavController,
+         cartViewModel:CartViewModel) {
 
     val sepetYemekler = cartViewModel.sepetListesi.observeAsState(listOf())
     val kullanici_adi = "ahmetozan"
@@ -90,7 +91,7 @@ fun Cart(navController: NavController, cartViewModel:CartViewModel) {
                 },
                 actions =
                 {
-                    // Clear Cart Button with conditional enabled/disabled state
+
                     val isCartEmpty = sepetYemekler.value.isEmpty()
 
                     Button(
@@ -100,15 +101,15 @@ fun Cart(navController: NavController, cartViewModel:CartViewModel) {
                                 mediaPlayer.start()
                             }
                         },
-                        enabled = !isCartEmpty,  // Button is disabled if the cart is empty
+                        enabled = !isCartEmpty,
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = if (isCartEmpty) Color.Gray else DarkCardColor, // Gray if disabled, Red if enabled
+                            containerColor = if (isCartEmpty) Color.Gray else DarkCardColor,
                             contentColor = Color.White
                         ),
                         modifier = Modifier.padding(end = 8.dp)
                     ) {
                         Icon(
-                            imageVector = Icons.Default.Clear, // Clear icon
+                            imageVector = Icons.Default.Clear,
                             contentDescription = stringResource(id = R.string.clear_cart),
                             tint = if (isCartEmpty) Color.Gray else Color.White
                         )

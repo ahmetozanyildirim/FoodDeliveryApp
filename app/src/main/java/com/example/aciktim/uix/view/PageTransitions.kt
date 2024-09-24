@@ -15,17 +15,20 @@ import com.example.aciktim.uix.viewmodel.DetailViewModel
 import com.example.aciktim.uix.viewmodel.HomeViewModel
 
 @Composable
-fun PageTransitions(homeViewModel: HomeViewModel,detailViewModel: DetailViewModel,cartViewModel:CartViewModel)
+fun PageTransitions(homeViewModel: HomeViewModel,
+                    detailViewModel: DetailViewModel,
+                    cartViewModel:CartViewModel)
 {
 
     val navController = rememberNavController()
 
     
     NavHost(navController = navController, startDestination = "home" ){
+
         composable("home"){
             Home(navController,homeViewModel)
-
         }
+
         composable(
             route ="detail/{yemek_id}",
             arguments = listOf(navArgument("yemek_id"){

@@ -79,12 +79,10 @@ fun Detail(
 ) {
 
 
-    // Observe the food detail from the ViewModel
-    var yemekLitesi = detailViewModel.yemekListesi.observeAsState(listOf())
 
+    var yemekLitesi = detailViewModel.yemekListesi.observeAsState(listOf())
     var yemek_index = yemek_id.toInt() -1
 
-    // Fetch the food detail when the screen is first loaded
     LaunchedEffect(key1 = yemek_id) {
         detailViewModel.yemekleriYukle()
     }
@@ -93,7 +91,7 @@ fun Detail(
 
 
 
-    // Display a loading indicator while the food details are being fetched
+
     if (yemekLitesi.value[yemek_index] == null) {
         Box(
             modifier = Modifier.fillMaxSize(),
@@ -102,9 +100,9 @@ fun Detail(
             CircularProgressIndicator()
         }
     } else {
-        // Once the food details are fetched, show the detail UI
+
         DetailContent(
-            yemek = yemekLitesi.value[yemek_index],  // Non-nullable as we've already checked for null
+            yemek = yemekLitesi.value[yemek_index],
             navController = navController,
             detailViewModel
         )
@@ -123,7 +121,7 @@ fun DetailContent(
     navController: NavController,
     detailViewModel: DetailViewModel
 ) {
-    var quantity by remember { mutableStateOf(1) }  // Manage the quantity state
+    var quantity by remember { mutableStateOf(1) }
     val kullanici_adi = "ahmetozan"
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()

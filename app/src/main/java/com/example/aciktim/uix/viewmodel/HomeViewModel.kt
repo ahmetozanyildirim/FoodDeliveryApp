@@ -39,12 +39,18 @@ yemekleriYukle()
 }
     }
 
-    fun sepeteEkle(yemek_adi:String,yemek_resim_adi:String,yemek_fiyat:Int,yemek_siparis_adet:Int,kullanici_adi:String){
+    fun sepeteEkle(yemek_adi:String,
+                   yemek_resim_adi:String,
+                   yemek_fiyat:Int,
+                   yemek_siparis_adet:Int,
+                   kullanici_adi:String){
+
         CoroutineScope(Dispatchers.Main).launch {
             syrepo.sepeteEkle(yemek_adi,yemek_resim_adi,yemek_fiyat,yemek_siparis_adet,kullanici_adi)
         }
     }
-    fun sepettenSil(sepet_yemek_id:Int,kullanici_adi: String){
+    fun sepettenSil(sepet_yemek_id:Int,
+                    kullanici_adi: String){
         CoroutineScope(Dispatchers.Main).launch{
             syrepo.sepettenSil(sepet_yemek_id,kullanici_adi)
         }
@@ -54,21 +60,21 @@ yemekleriYukle()
 
         CoroutineScope(Dispatchers.Main).launch {
             try {
-                // API'den yemekleri al
+
                 val response = withContext(Dispatchers.IO) {
                     syrepo.sepettekiYemekleriGetir(kullanici_adi)
                 }
 
-                // Eğer cevap boşsa veya geçersizse, bir hata durumunu işleyin
+
                 if (response.isNullOrEmpty()) {
-                    sepetListesi.value = emptyList() // Boş liste olarak ayarla
+                    sepetListesi.value = emptyList()
                 } else {
-                    sepetListesi.value = response // Veriyi ayarla
+                    sepetListesi.value = response
                 }
             } catch (e: Exception) {
-                // Hata durumunu işleyin
+
                 Log.e("CartError", "Error loading cart items: ${e.message}")
-                sepetListesi.value = emptyList() // Boş liste olarak ayarla
+                sepetListesi.value = emptyList()
             }
         }
 
